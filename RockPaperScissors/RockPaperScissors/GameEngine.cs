@@ -48,6 +48,22 @@ namespace RockPaperScissors
             }
         }
 
+        public string[] rps_tournament_winner(string[][][] playersAndMoves)
+        {
+            if (playersAndMoves.Length == 1)
+                return rps_game_winner(playersAndMoves[0]);
+
+            if (playersAndMoves.Length % 2 != 0)
+                throw new WrongNumberOfPlayersError("The tournament must have a pair number of players");
+
+            var playersAndMovesNextRound = new string[playersAndMoves.Length / 2][][];
+            for (int i = 0, j = 0; i < playersAndMoves.Length; i += 2, j++)
+            {
+                playersAndMovesNextRound[j] = new[] { rps_game_winner(playersAndMoves[i]), rps_game_winner(playersAndMoves[i + 1]) };
+            }
+            return rps_tournament_winner(playersAndMovesNextRound);
+        }
+
         private bool IsValidMove(string move)
         {
             if (move.Equals(MOVE_ROCK) || move.Equals(MOVE_PAPER) || move.Equals(MOVE_SCESSOR))
