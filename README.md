@@ -1,2 +1,1 @@
 # RockPaperScissors
-Teste para HBSIS
